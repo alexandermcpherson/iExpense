@@ -7,9 +7,23 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SecondView: View {
     var body: some View {
-        Text("Hello, world!").padding()
+        Text("Second View")
+    }
+}
+
+struct ContentView: View {
+
+    @State private var showingSheet = false
+
+    var body: some View {
+        Button("Show sheet") {
+            self.showingSheet.toggle()
+        }
+        .sheet(isPresented: $showingSheet) {
+            SecondView()
+        }
     }
 }
 

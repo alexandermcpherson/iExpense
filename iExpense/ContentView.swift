@@ -26,7 +26,8 @@ struct ContentView: View {
                     numbers.append(currentNumber)
                     currentNumber += 1
                 }
-            }.navigationBarItems(leading: EditButton())
+            }
+            .navigationBarItems(leading: EditButton())
         }
     }
 

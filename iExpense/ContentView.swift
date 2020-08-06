@@ -34,6 +34,22 @@ class Expenses: ObservableObject {
         }
         self.items = []
     }
+
+    func removeItems(of offSets: IndexSet) {
+        items.remove(atOffsets: offSets)
+    }
+
+    func styleExpense(amount: Int) -> Color {
+        var color: Color = .black
+        if amount <= 10 {
+            color = .green
+        } else if amount > 10 && amount < 100 {
+            color = .blue
+        } else if amount >= 100 {
+            color = .red
+        }
+        return color
+    }
 }
 
 struct ContentView: View {
@@ -53,10 +69,10 @@ struct ContentView: View {
                         }
                         Spacer()
                         Text("$\(item.amount)")
-                            .foregroundColor(styleExpense(amount: item.amount))
+                            .foregroundColor(expenses.styleExpense(amount: item.amount))
                     }
                 }
-                .onDelete(perform: removeItems)
+                .onDelete(perform: expenses.removeItems)
             }
             .navigationBarTitle("iExpense")
             .navigationBarItems(leading: EditButton(), trailing:
@@ -70,22 +86,6 @@ struct ContentView: View {
         .sheet(isPresented: $showingAddExpense) {
             AddView(expenses: expenses)
         }
-    }
-
-    func removeItems(of offSets: IndexSet) {
-        expenses.items.remove(atOffsets: offSets)
-    }
-
-    func styleExpense(amount: Int) -> Color {
-        var color: Color = .black
-        if amount <= 10 {
-            color = .green
-        } else if amount > 10 && amount < 100 {
-            color = .blue
-        } else if amount >= 100 {
-            color = .red
-        }
-        return color
     }
 }
 
